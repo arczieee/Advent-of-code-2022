@@ -119,3 +119,108 @@ print(isVisible)
 
 x = np.where(isVisible == 1)
 print(len(x[0]))
+
+score = []
+
+i = 0
+j = 0
+
+while i < rows:
+    while j < columns:
+        left = 0
+        right = 0
+        up = 0
+        down = 0
+        #check left
+        sameHreached = 0
+        k = j-1
+        while k>-1:
+            if (sameHreached == 0):
+                if a[i,j]>a[i,k]:
+                    left = left+1
+                elif a[i,j]==a[i,k]:
+                    left = left+1
+                    sameHreached = 1
+                else:
+                    left = left+1
+                    k = -1
+            else:
+                if k>0:
+                    if a[i,k]>a[i,k-1]:
+                        left = left+1
+                    else:
+                        k = -1
+            k=k-1
+        #check right
+        sameHreached = 0
+        k = j+1
+        while k<columns:
+            if (sameHreached == 0):
+                if a[i,j]>a[i,k]:
+                    right = right+1
+                elif a[i,j]==a[i,k]:
+                    right = right+1
+                    sameHreached = 1
+                else:
+                    right = right+1
+                    k = columns
+            else:
+                if k<columns-2:
+                    if a[i,k]>a[i,k+1]:
+                        right = right+1
+                    else:
+                        k = columns
+            k=k+1
+        #check down
+        sameHreached = 0
+        k = i+1
+        while k<rows:
+            if (sameHreached == 0):
+                if a[i,j]>a[k,j]:
+                    down = down+1
+                elif a[i,j]==a[k,j]:
+                    down = down+1
+                    sameHreached = 1
+                else:
+                    down = down+1
+                    k = rows
+            else:
+                if k < rows-2:
+                    if a[k,j]>a[k+1,j]:
+                        down = down+1
+                    else:
+                        k = rows
+            k=k+1
+        #check up
+        sameHreached = 0
+        k = i-1
+        while k>-1:
+            if (sameHreached == 0):
+                if a[i,j]>a[k,j]:
+                    up = up+1
+                elif a[i,j]==a[k,j]:
+                    up = up+1
+                    sameHreached = 1
+                else:
+                    up = up+1
+                    k = -1
+            else:
+                if k > 0:
+                    if a[k,j]>a[k-1,j]:
+                        up = up+1
+                    else:
+                        k = -1
+            k=k-1
+
+        #end
+        if i==3 and j ==2:
+            print('%d\t%d\t%d\t%d'%(up,left,down,right))
+        score.append(left*right*up*down)
+        j=j+1
+    
+    
+    j=0
+    i=i+1
+
+print(score)
+print(max(score))
